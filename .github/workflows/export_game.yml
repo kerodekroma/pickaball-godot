@@ -3,9 +3,6 @@ on:
   push:
     branches:
       - master
-    paths:
-      - "build_html/**"
-
 jobs:
   export_game:
     runs-on: ubuntu-latest
