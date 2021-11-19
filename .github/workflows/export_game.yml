@@ -1,4 +1,4 @@
-name: "Build and deploy"
+name: "Build and release it in GITHUB"
 on:
   push:
     branches:
