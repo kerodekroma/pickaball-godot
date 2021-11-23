@@ -1,0 +1,36 @@
+[gd_scene format=2]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="score" type="Label" parent="."]
+margin_left = 9.739
+margin_top = 10.4881
+margin_right = 50.739
+margin_bottom = 24.4881
+text = "SCORE"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="timeout" type="Label" parent="."]
+margin_left = 316.143
+margin_top = 8.24069
+margin_right = 356.143
+margin_bottom = 22.2407
+text = "00:00"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="sound" type="Label" parent="."]
+margin_left = 556.621
+margin_top = 7.49155
+margin_right = 629.621
+margin_bottom = 38.4915
+text = "SOUND ON
+"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
