@@ -2,6 +2,14 @@
 
 [node name="Node2D" type="Node2D"]
 
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_right = 640.0
+margin_bottom = 32.0
+color = Color( 0.670588, 0.121569, 0.396078, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="score" type="Label" parent="."]
 margin_left = 9.739
 margin_top = 10.4881

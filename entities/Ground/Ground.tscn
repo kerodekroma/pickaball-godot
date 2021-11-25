@@ -1,0 +1,51 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/ground.png" type="Texture" id=1]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 320.802, 29.4364 )
+
+[node name="Ground" type="Node2D"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_right = 640.0
+margin_bottom = 286.0
+color = Color( 0.168627, 0.0588235, 0.329412, 1 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="StaticBodyRight" type="StaticBody2D" parent="."]
+position = Vector2( 676.827, 156.478 )
+scale = Vector2( 0.136554, 3.39873 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Right" type="CollisionShape2D" parent="StaticBodyRight"]
+shape = SubResource( 1 )
+
+[node name="StaticBodyTop" type="StaticBody2D" parent="."]
+visible = false
+position = Vector2( 329.876, -8.20734 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Top" type="CollisionShape2D" parent="StaticBodyTop"]
+position = Vector2( -7.98459, -22.8722 )
+shape = SubResource( 1 )
+
+[node name="StaticBodyBottom" type="StaticBody2D" parent="."]
+position = Vector2( 324, 298 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Bottom" type="CollisionShape2D" parent="StaticBodyBottom"]
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 320, 144 )
+texture = ExtResource( 1 )
