@@ -11,7 +11,7 @@ extents = Vector2( 12.0756, 0.526633 )
 extents = Vector2( 0.894152, 4.18056 )
 
 [sub_resource type="RectangleShape2D" id=4]
-extents = Vector2( 11.7071, 29.5653 )
+extents = Vector2( 11.7071, 37.1146 )
 
 [node name="Basket" type="Node2D"]
 script = ExtResource( 3 )
@@ -45,13 +45,12 @@ shape = SubResource( 3 )
 
 [node name="Board" type="StaticBody2D" parent="."]
 __meta__ = {
-"_edit_group_": true,
-"_edit_lock_": true
+"_edit_group_": true
 }
 
 [node name="Sprite" type="Sprite" parent="Board"]
 texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Board"]
-position = Vector2( -7.62236, -3.67144 )
+position = Vector2( -7.62236, -11.2208 )
 shape = SubResource( 4 )
