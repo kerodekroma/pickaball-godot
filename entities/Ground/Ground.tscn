@@ -27,7 +27,6 @@ __meta__ = {
 shape = SubResource( 1 )
 
 [node name="StaticBodyTop" type="StaticBody2D" parent="."]
-visible = false
 position = Vector2( 329.876, -8.20734 )
 __meta__ = {
 "_edit_group_": true

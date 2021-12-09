@@ -11,12 +11,12 @@ config_version=4
 [application]
 
 config/name="Pickaball-godot"
-run/main_scene="res://scenes/Main.tscn"
+run/main_scene="res://scenes/main.tscn"
 config/icon="res://icon.png"
 
-[debug]
+[autoload]
 
-settings/stdout/print_fps=true
+Globals="*res://scripts/Globals.gd"
 
 [display]
 
