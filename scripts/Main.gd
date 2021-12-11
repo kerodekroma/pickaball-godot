@@ -18,13 +18,13 @@ func create_ball():
 	if ball_instance != null:
 		ball_instance.queue_free()
 	ball_instance = ball.instance()
-	ball_instance.position = Vector2(520, 170)
+	ball_instance.position = Vector2(720, 320)
 	add_child(ball_instance)
 
 func _on_control_released(direction):
 	print("direction", direction)
-	ball_instance.apply_torque_impulse(7000)
-	ball_instance.apply_impulse(Vector2.ZERO, direction * -3)
+	ball_instance.apply_torque_impulse(1000)
+	ball_instance.apply_impulse(Vector2.ZERO, direction * -8)
 
 func _on_basket_goal():
 	current_score += Globals.calculate_points();
