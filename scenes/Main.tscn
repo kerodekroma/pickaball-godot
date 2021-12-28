@@ -15,7 +15,7 @@ script = ExtResource( 7 )
 [node name="HUD" parent="." instance=ExtResource( 2 )]
 
 [node name="Basket" parent="." instance=ExtResource( 5 )]
-position = Vector2( 63.8713, 149.632 )
+position = Vector2( 63.871, 198 )
 scale = Vector2( 2, 2 )
 
 [node name="Control" parent="." instance=ExtResource( 1 )]
