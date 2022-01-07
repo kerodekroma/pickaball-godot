@@ -38,14 +38,14 @@ __meta__ = {
 }
 
 [node name="score" type="Label" parent="HBoxContainer"]
-margin_right = 122.0
+margin_right = 148.0
 margin_bottom = 40.0
 grow_horizontal = 0
 grow_vertical = 0
 size_flags_horizontal = 2
 size_flags_vertical = 0
 theme = ExtResource( 2 )
-text = "SCORE 00"
+text = "SCORE 0000"
 __meta__ = {
 "_edit_use_anchors_": false
 }

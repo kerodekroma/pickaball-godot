@@ -8,6 +8,7 @@ var touch_pos = Vector2()
 var area_ent = false
 var screen_size = Vector2.ZERO
 var initial_sprite_position: Vector2
+const MAX_DISTANCE = 150
 
 signal control_released(position)
 
@@ -22,7 +23,6 @@ func _on_TouchScreenButton_pressed():
 	area_ent = true
 	$Sprite.scale.y = 2
 	$Sprite.scale.x = 2
-	print("pressed!!")
 
 func _on_TouchScreenButton_released():
 	area_ent = false
@@ -42,5 +42,7 @@ func _input(event):
 			touch_pos = event.get_position()
 			delta_drag_x = touch_pos.x - delta_x
 			delta_drag_y = touch_pos.y - delta_y
-			$Sprite.set_position(Vector2(delta_drag_x, delta_drag_y))
+			var force = Vector2(delta_drag_x, delta_drag_y)
+			#using clamped limits a vector longitude
+			$Sprite.set_position(force.clamped(MAX_DISTANCE))
 	
