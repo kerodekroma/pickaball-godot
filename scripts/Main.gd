@@ -3,11 +3,7 @@ extends Node2D
 const ball = preload("res://entities/Ball/Ball.tscn")
 const control = preload("res://entities/Control/Control.tscn")
 
-const BOUNDS_TO_GENERATE_THE_BALL = [
-	0, 0, 0, 0
-]
 var time_to_reload_when_it_fails = 3.8
-
 var control_instance: Node
 var ball_instance
 var current_score = 0
@@ -41,6 +37,7 @@ func create_control():
 
 func create_reload_timer():
 	if timer_reload_ball_and_control_instance != null:
+		timer_reload_ball_and_control_instance.stop()
 		remove_child(timer_reload_ball_and_control_instance)
 	#create the timer to restart the ball & controls
 	timer_reload_ball_and_control_instance = Timer.new()
@@ -52,7 +49,7 @@ func create_reload_timer():
 	print("START TIMER")
 
 func _on_control_released(direction):
-	ball_instance.apply_torque_impulse(200000)
+	ball_instance.apply_torque_impulse(10000)
 	ball_instance.apply_impulse(Vector2.ZERO, direction * -50)
 	remove_child(control_instance)
 	create_reload_timer()
@@ -65,7 +62,14 @@ func _on_ball_touched_ring():
 
 func _on_basket_goal():
 	current_score += Globals.calculate_points();
-	$HUD/HBoxContainer/score.text = 'SCORE {points}'.format({"points": current_score})
+	var points = '0000'
+	if current_score < 100:
+		points = '00{current_score}'.format({"current_score": current_score})
+	if current_score > 100:
+		points = '0{current_score}'.format({"current_score": current_score})
+	if current_score > 999:
+		points = '{current_score}'.format({"current_score": current_score}) 
+	$HUD/HBoxContainer/score.text = 'SCORE {points}'.format({"points": points})
 	$Basket.hide_goal_area()
 
 func create_ball_and_control():
