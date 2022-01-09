@@ -1,9 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
+[ext_resource path="res://scenes/Pause.tscn" type="PackedScene" id=1]
 [ext_resource path="res://entities/HUD/HUD.tscn" type="PackedScene" id=2]
 [ext_resource path="res://entities/Ground/Ground.tscn" type="PackedScene" id=3]
 [ext_resource path="res://themes/pickaball.tres" type="Theme" id=4]
 [ext_resource path="res://entities/Basket/Basket.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/Score.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scripts/Main.gd" type="Script" id=7]
 
 [node name="Main" type="Node2D"]
@@ -41,5 +43,24 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="PauseDialog" parent="." instance=ExtResource( 1 )]
+pause_mode = 2
+visible = false
+position = Vector2( 308, 256 )
+z_index = 100
+
+[node name="ScoreDialog" parent="." instance=ExtResource( 6 )]
+pause_mode = 2
+visible = false
+position = Vector2( 325, 208 )
+z_index = 100
+
+[connection signal="on_btn_menu_pressed" from="HUD" to="." method="_on_HUD_on_btn_menu_pressed"]
+[connection signal="on_match_finishes" from="HUD" to="." method="_on_HUD_on_match_finishes"]
 [connection signal="goal" from="Basket" to="." method="_on_Basket_goal"]
 [connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
+[connection signal="on_main_menu_pressed" from="PauseDialog" to="." method="_on_PauseDialog_on_main_menu_pressed"]
+[connection signal="on_reset_double_check_ok_pressed" from="PauseDialog" to="." method="_on_PauseDialog_on_reset_double_check_ok_pressed"]
+[connection signal="on_resume_pressed" from="PauseDialog" to="." method="_on_PauseDialog_on_resume_pressed"]
+[connection signal="on_score_go_main_menu" from="ScoreDialog" to="." method="_on_ScoreDialog_on_score_go_main_menu"]
+[connection signal="on_score_play_again" from="ScoreDialog" to="." method="_on_ScoreDialog_on_score_play_again"]
