@@ -1,0 +1,105 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scripts/Pause.gd" type="Script" id=1]
+[ext_resource path="res://themes/pickaball.tres" type="Theme" id=2]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_vertical_guides_": [ 480.0 ]
+}
+
+[node name="Border" type="ColorRect" parent="."]
+margin_right = 337.0
+margin_bottom = 193.0
+color = Color( 0.286275, 0.905882, 0.92549, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="ColorRect" parent="."]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 334.0
+margin_bottom = 191.0
+color = Color( 0.168627, 0.0588235, 0.329412, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FirstMenu" type="VBoxContainer" parent="."]
+margin_left = 95.0
+margin_top = 25.0
+margin_right = 242.0
+margin_bottom = 109.0
+theme = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="btnResume" type="Button" parent="FirstMenu"]
+margin_right = 147.0
+margin_bottom = 40.0
+text = "RESUME"
+
+[node name="btnReset" type="Button" parent="FirstMenu"]
+margin_top = 44.0
+margin_right = 147.0
+margin_bottom = 84.0
+text = "PLAY AGAIN"
+
+[node name="btnMainMenu" type="Button" parent="FirstMenu"]
+margin_top = 88.0
+margin_right = 147.0
+margin_bottom = 128.0
+text = "MAIN MENU"
+
+[node name="DoubleCheck" type="Node2D" parent="."]
+visible = false
+
+[node name="Label" type="Label" parent="DoubleCheck"]
+margin_left = 23.0
+margin_top = 24.0
+margin_right = 319.0
+margin_bottom = 74.0
+theme = ExtResource( 2 )
+text = "ARE YOU SURE?"
+align = 1
+autowrap = true
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="DoubleCheck"]
+margin_left = 106.0
+margin_top = 73.0
+margin_right = 226.0
+margin_bottom = 113.0
+size_flags_horizontal = 3
+theme = ExtResource( 2 )
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="btnOK" type="Button" parent="DoubleCheck/HBoxContainer"]
+margin_right = 58.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "YES"
+
+[node name="btnNO" type="Button" parent="DoubleCheck/HBoxContainer"]
+margin_left = 62.0
+margin_right = 120.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "NO"
+
+[connection signal="pressed" from="FirstMenu/btnResume" to="." method="_on_btnResume_pressed"]
+[connection signal="pressed" from="FirstMenu/btnReset" to="." method="_on_btnReset_pressed"]
+[connection signal="pressed" from="FirstMenu/btnMainMenu" to="." method="_on_btnMainMenu_pressed"]
+[connection signal="pressed" from="DoubleCheck/HBoxContainer/btnOK" to="." method="_on_btnOK_double_check_pressed"]
+[connection signal="pressed" from="DoubleCheck/HBoxContainer/btnNO" to="." method="_on_btnNO_pressed"]

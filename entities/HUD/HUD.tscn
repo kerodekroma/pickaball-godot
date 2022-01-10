@@ -62,17 +62,14 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="sound" type="Label" parent="HBoxContainer"]
+[node name="btnMenu" type="Button" parent="HBoxContainer"]
 margin_left = 621.0
 margin_right = 928.0
 margin_bottom = 40.0
-grow_horizontal = 0
-grow_vertical = 0
 size_flags_horizontal = 7
+size_flags_vertical = 5
 theme = ExtResource( 2 )
-text = "SOUND ON"
+text = "MENU"
 align = 2
-valign = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
+
+[connection signal="pressed" from="HBoxContainer/btnMenu" to="." method="_on_btnMenu_pressed"]

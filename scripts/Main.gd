@@ -14,7 +14,14 @@ func _ready():
 	$Basket.connect("goal", self, "_on_basket_goal")
 	create_ball()
 	create_control()
+
+func _input(event):
+	if event.is_action_pressed("ui_pause"):
+		_on_HUD_on_btn_menu_pressed()
 	
+	if event.is_action_pressed("ui_cancel"):
+		$PauseDialog.hide()
+
 func _on_Button_pressed():
 	create_ball_and_control()
 
@@ -65,7 +72,7 @@ func _on_basket_goal():
 	var points = '0000'
 	if current_score < 100:
 		points = '00{current_score}'.format({"current_score": current_score})
-	if current_score > 100:
+	if current_score >= 100:
 		points = '0{current_score}'.format({"current_score": current_score})
 	if current_score > 999:
 		points = '{current_score}'.format({"current_score": current_score}) 
@@ -78,3 +85,33 @@ func create_ball_and_control():
 	create_control()
 	$Basket.setup_goal_area()
 	timer_reload_ball_and_control_instance.stop()
+
+func _on_HUD_on_btn_menu_pressed():
+	# useful info: https://docs.godotengine.org/en/3.4/tutorials/scripting/pausing_games.html#pause
+	$PauseDialog.show()
+	get_tree().paused = true
+
+func _on_PauseDialog_on_resume_pressed():
+	$PauseDialog.hide()
+	get_tree().paused = false
+
+func _on_PauseDialog_on_reset_double_check_ok_pressed():
+	get_tree().reload_current_scene()
+	get_tree().paused = false
+
+func _on_PauseDialog_on_main_menu_pressed():
+	get_tree().paused = false
+	Globals.go_to_main_menu()
+
+func _on_HUD_on_match_finishes():
+	get_tree().paused = true
+	$ScoreDialog/lblScore.text = $HUD/HBoxContainer/score.text
+	$ScoreDialog.show()
+
+func _on_ScoreDialog_on_score_go_main_menu():
+	get_tree().paused = false
+	Globals.go_to_main_menu()
+
+func _on_ScoreDialog_on_score_play_again():
+	get_tree().reload_current_scene()
+	get_tree().paused = false
