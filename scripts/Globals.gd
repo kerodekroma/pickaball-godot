@@ -37,6 +37,16 @@ func save_record(value):
 func calculate_points():
 	return 10 * current_level
 
+func format_score(value: int) -> String: 
+	var points = '0000'
+	if value < 100:
+		points = '00{value}'.format({"value": value})
+	if value >= 100:
+		points = '0{value}'.format({"value": value})
+	if value > 999:
+		points = '{value}'.format({"value": value}) 
+	return points
+
 func build_rand_x_by_level(num_level):
 	return rand_range(levels[num_level-1], levels[num_level])
 
