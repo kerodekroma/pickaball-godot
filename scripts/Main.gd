@@ -69,13 +69,7 @@ func _on_ball_touched_ring():
 
 func _on_basket_goal():
 	current_score += Globals.calculate_points();
-	var points = '0000'
-	if current_score < 100:
-		points = '00{current_score}'.format({"current_score": current_score})
-	if current_score >= 100:
-		points = '0{current_score}'.format({"current_score": current_score})
-	if current_score > 999:
-		points = '{current_score}'.format({"current_score": current_score}) 
+	var points = Globals.format_score(current_score)
 	$HUD/HBoxContainer/score.text = 'SCORE {points}'.format({"points": points})
 	$Basket.hide_goal_area()
 
@@ -105,7 +99,7 @@ func _on_PauseDialog_on_main_menu_pressed():
 
 func _on_HUD_on_match_finishes():
 	get_tree().paused = true
-	$ScoreDialog/lblScore.text = $HUD/HBoxContainer/score.text
+	$ScoreDialog/WrapperPoints/lblScore.text = Globals.format_score(current_score)
 	$ScoreDialog.show()
 
 func _on_ScoreDialog_on_score_go_main_menu():
