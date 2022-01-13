@@ -21,7 +21,7 @@ __meta__ = {
 }
 
 [node name="Pick-a-ball-logo" type="Sprite" parent="."]
-position = Vector2( 482, 201 )
+position = Vector2( 482, 180 )
 scale = Vector2( 0.544, 0.544 )
 texture = ExtResource( 1 )
 

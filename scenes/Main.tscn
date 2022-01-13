@@ -57,7 +57,6 @@ z_index = 100
 
 [connection signal="on_btn_menu_pressed" from="HUD" to="." method="_on_HUD_on_btn_menu_pressed"]
 [connection signal="on_match_finishes" from="HUD" to="." method="_on_HUD_on_match_finishes"]
-[connection signal="goal" from="Basket" to="." method="_on_Basket_goal"]
 [connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
 [connection signal="on_main_menu_pressed" from="PauseDialog" to="." method="_on_PauseDialog_on_main_menu_pressed"]
 [connection signal="on_reset_double_check_ok_pressed" from="PauseDialog" to="." method="_on_PauseDialog_on_reset_double_check_ok_pressed"]

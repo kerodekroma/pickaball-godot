@@ -13,26 +13,38 @@ const min_y_range = 150
 const max_y_range = 400
 var current_level = 0
 
-var record_data = {"records": ["","",""]} 
-var file_name = "user://pick_a_ball_records"
+# var record_data = {"records": []} 
+var file_name = "user://pick_a_ball_records.txt"
 
-func load_records():
+func load_data():
 	var data_file = File.new()
+	var default_content = {"records":[]}
 	if not data_file.file_exists(file_name):
-		print("file not found, saving an empty file..")
-		save_record("")
+		return default_content
 	# read the file line by line
 	data_file.open(file_name, File.READ)
-	while data_file.get_position() < data_file.get_len():
-		var node_data = parse_json(data_file.get_line())
-		print("node_data", node_data.records[0])
+	var content = data_file.get_as_text()
+	data_file.close()
+	if content.length() < 1:
+		return default_content
+	return parse_json(content)
 
 func save_record(value):
+	var data_to_save = load_data()
 	var data_file = File.new()
 	data_file.open(file_name, File.WRITE)
-	var content = value;
-	data_file.store_string(content)
+	data_to_save["records"].append(value)
+	data_to_save["records"].sort_custom(self, "ascendant_sort")
+	data_to_save["records"] = data_to_save["records"].slice(0, 2)
+	data_file.store_string(to_json(data_to_save))
 	data_file.close()
+	
+func ascendant_sort(a, b):
+	return a > b
+
+func clear_record():
+	var dir = Directory.new()
+	dir.remove(file_name)
 
 func calculate_points():
 	return 10 * current_level
@@ -69,4 +81,5 @@ func generate_control_position(ball_position: Vector2) -> Vector2:
 	return control_position
 
 func go_to_main_menu():
+# warning-ignore:return_value_discarded
 	get_tree().change_scene("res://scenes/welcome.tscn")

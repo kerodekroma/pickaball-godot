@@ -68,6 +68,7 @@ func _on_ball_touched_ring():
 	time_to_reload_when_it_fails += 0.4
 
 func _on_basket_goal():
+	print("GOAL!")
 	current_score += Globals.calculate_points();
 	var points = Globals.format_score(current_score)
 	$HUD/HBoxContainer/score.text = 'SCORE {points}'.format({"points": points})
@@ -99,6 +100,7 @@ func _on_PauseDialog_on_main_menu_pressed():
 
 func _on_HUD_on_match_finishes():
 	get_tree().paused = true
+	Globals.save_record(current_score)
 	$ScoreDialog/WrapperPoints/lblScore.text = Globals.format_score(current_score)
 	$ScoreDialog.show()
 
