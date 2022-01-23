@@ -12,6 +12,7 @@ const levels = [200, 260, 430, 750]
 const min_y_range = 150
 const max_y_range = 400
 var current_level = 0
+const time_to_reload_when_it_fails = 3.8 # milliseconds
 
 # var record_data = {"records": []} 
 var file_name = "user://pick_a_ball_records.txt"

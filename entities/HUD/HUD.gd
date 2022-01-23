@@ -7,7 +7,9 @@ signal on_btn_menu_pressed
 signal on_match_finishes
 
 func _ready():
-	$Timer.connect("timeout", self, "_on_Timer_timeout")
+	var has_error = $Timer.connect("timeout", self, "_on_Timer_timeout")
+	if has_error != 0:
+		print("ERROR found in HUD:", has_error)
 
 func _on_Timer_timeout():
 	if time_left == 0:
