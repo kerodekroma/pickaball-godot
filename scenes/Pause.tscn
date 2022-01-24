@@ -28,10 +28,10 @@ __meta__ = {
 }
 
 [node name="FirstMenu" type="VBoxContainer" parent="."]
-margin_left = 95.0
-margin_top = 25.0
-margin_right = 242.0
-margin_bottom = 109.0
+margin_left = 96.0
+margin_top = 45.0
+margin_right = 243.0
+margin_bottom = 143.0
 theme = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -39,19 +39,19 @@ __meta__ = {
 
 [node name="btnResume" type="Button" parent="FirstMenu"]
 margin_right = 147.0
-margin_bottom = 40.0
+margin_bottom = 30.0
 text = "RESUME"
 
 [node name="btnReset" type="Button" parent="FirstMenu"]
-margin_top = 44.0
+margin_top = 34.0
 margin_right = 147.0
-margin_bottom = 84.0
+margin_bottom = 64.0
 text = "PLAY AGAIN"
 
 [node name="btnMainMenu" type="Button" parent="FirstMenu"]
-margin_top = 88.0
+margin_top = 68.0
 margin_right = 147.0
-margin_bottom = 128.0
+margin_bottom = 98.0
 text = "MAIN MENU"
 
 [node name="DoubleCheck" type="Node2D" parent="."]

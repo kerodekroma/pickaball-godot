@@ -88,19 +88,21 @@ margin_bottom = 180.0
 grow_horizontal = 0
 grow_vertical = 0
 custom_constants/separation = 20
+alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="btnPlayAgain" type="Button" parent="HBoxContainer"]
-margin_right = 147.0
+margin_left = 35.0
+margin_right = 146.0
 margin_bottom = 40.0
 theme = ExtResource( 2 )
 text = "PLAY AGAIN"
 
 [node name="btnMainMenu" type="Button" parent="HBoxContainer"]
-margin_left = 167.0
-margin_right = 307.0
+margin_left = 166.0
+margin_right = 271.0
 margin_bottom = 40.0
 theme = ExtResource( 2 )
 text = "MAIN MENU"

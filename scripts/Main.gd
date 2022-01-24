@@ -15,6 +15,11 @@ func _ready():
 	connect_with_basket_node()
 	create_ball()
 	create_control()
+	#setting rubber control
+	$RubberControl.add_point(ball_instance.position, 0.2)
+	$RubberControl.add_point(control_instance.position + Vector2(30, 30), 0.2)
+	# setting the projection
+	create_ball_projection()
 
 func _input(event):
 	if event.is_action_pressed("ui_pause"):
@@ -45,20 +50,28 @@ func connect_with_basket_node():
 func create_ball():
 	if ball_instance != null:
 		remove_child(ball_instance)
+	
 	ball_instance = ball.instance()
 	ball_instance.position = Globals.generate_ball_position()
+
 	var has_error = ball_instance.connect("ball_touched_ring", self, "_on_ball_touched_ring")
 	if has_error != 0:
 		print("ERROR connecting with the ball_instance", has_error)
+
 	add_child(ball_instance)
 
 func create_control():
 	control_instance = control.instance()
 	# initial position in the 2d preview: 768, 310
 	control_instance.position = Globals.generate_control_position(ball_instance.position)
+	
+	if control_instance.connect("control_is_dragging", self, "_on_control_is_dragging") != 0:
+		print("ERROR connecting with the control_is_dragging event")
+	
 	var has_error = control_instance.connect("control_released", self, "_on_control_released")
 	if has_error != 0:
 		print("ERROR connecting with the control", has_error)
+	
 	add_child(control_instance)
 
 func create_reload_timer(value):
@@ -78,11 +91,17 @@ func create_reload_timer(value):
 	timer_reload_ball_and_control_instance.start()
 	print("START TIMER", value)
 
+func _on_control_is_dragging(position):
+	#updating rubber control
+	$RubberControl.points[0] = control_instance.position + position
+
 func _on_control_released(direction):
 	ball_instance.apply_torque_impulse(10000)
 	ball_instance.apply_impulse(Vector2.ZERO, direction * -50)
 	remove_child(control_instance)
 	create_reload_timer(time_to_reload_when_it_fails)
+	# rubber clean
+	$RubberControl.clear_points()
 
 func _on_ball_touched_ring():
 	print("more time please!")
@@ -106,6 +125,25 @@ func create_ball_and_control():
 	connect_with_basket_node()
 	timer_reload_ball_and_control_instance.stop()
 	time_to_reload_when_it_fails = Globals.time_to_reload_when_it_fails
+	
+	#rubber again
+	$RubberControl.clear_points()
+	$RubberControl.add_point(ball_instance.position, 0.2)
+	$RubberControl.add_point(control_instance.position + Vector2(30, 30), 0.2)
+	create_ball_projection()
+	
+#Refs
+# https://github.com/kerodekroma/pickaball/blob/ba90ca2a53f69ea25c215cb0d91fb6e519b8b976/src/objects/arrow.object.ts#L150
+# https://github.com/MrEliptik/godot_experiments/blob/master/2D/destructible_terrain/scenes/game.gd
+func create_ball_projection():
+	var delta = Engine.get_frames_per_second()
+	$BallProjection.clear_points()
+	var ball_pos = ball_instance.position
+	var vel = Vector2(-20, -20)
+	for i in 10:
+		$BallProjection.add_point(ball_pos)
+		vel.y += 3 * delta
+		ball_pos += vel * delta
 
 func _on_HUD_on_btn_menu_pressed():
 	# useful info: https://docs.godotengine.org/en/3.4/tutorials/scripting/pausing_games.html#pause

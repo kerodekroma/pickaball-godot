@@ -11,6 +11,7 @@ var initial_sprite_position: Vector2
 const MAX_DISTANCE = 150
 
 signal control_released(position)
+signal control_is_dragging(position)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -45,4 +46,4 @@ func _input(event):
 			var force = Vector2(delta_drag_x, delta_drag_y)
 			#using clamped limits a vector longitude
 			$Sprite.set_position(force.clamped(MAX_DISTANCE))
-	
+			emit_signal("control_is_dragging", $Sprite.position)

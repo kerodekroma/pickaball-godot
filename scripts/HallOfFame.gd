@@ -22,7 +22,8 @@ func print_scores(record_data: Array):
 		$VBoxContainer.move_child(label_instance, 0)
 
 func _on_Button_pressed():
-	get_tree().change_scene("res://scenes/welcome.tscn")
+	if get_tree().change_scene("res://scenes/welcome.tscn") != OK:
+		print ("An unexpected error occured when trying to switch to the welcome scene")
 
 func _on_Button2_pressed():
 	Globals.clear_record()

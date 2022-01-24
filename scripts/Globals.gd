@@ -69,8 +69,7 @@ func generate_ball_position() -> Vector2:
 	var rand_x = build_rand_x_by_level(current_level)
 	var rand_y = rand_range(min_y_range, max_y_range)
 	# var ball_position = Vector2(720, 320)
-	var ball_position = Vector2(rand_x, rand_y)
-	return ball_position
+	return Vector2(rand_x, rand_y)
  
 func generate_control_position(ball_position: Vector2) -> Vector2:
 	# default values
@@ -78,8 +77,7 @@ func generate_control_position(ball_position: Vector2) -> Vector2:
 	var distance = 40
 	var dis_x = distance + cos(30) + ball_position.x
 	var dis_y = distance + sin(30) + ball_position.y
-	var control_position = Vector2(dis_x, dis_y)
-	return control_position
+	return Vector2(dis_x, dis_y)
 
 func go_to_main_menu():
 # warning-ignore:return_value_discarded

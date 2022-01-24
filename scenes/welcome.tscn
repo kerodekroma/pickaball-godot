@@ -38,6 +38,7 @@ __meta__ = {
 }
 
 [node name="btnNewGame" type="Button" parent="VBoxContainer"]
+margin_top = 10.0
 margin_right = 189.0
 margin_bottom = 40.0
 theme = ExtResource( 2 )
@@ -47,7 +48,7 @@ flat = true
 [node name="btnHallOfFame" type="Button" parent="VBoxContainer"]
 margin_top = 44.0
 margin_right = 189.0
-margin_bottom = 84.0
+margin_bottom = 74.0
 theme = ExtResource( 2 )
 text = "HALL OF FAME"
 flat = true

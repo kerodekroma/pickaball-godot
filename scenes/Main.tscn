@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://scenes/Pause.tscn" type="PackedScene" id=1]
 [ext_resource path="res://entities/HUD/HUD.tscn" type="PackedScene" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://entities/Basket/Basket.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/Score.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scripts/Main.gd" type="Script" id=7]
+[ext_resource path="res://assets/rubber-texture.png" type="Texture" id=8]
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 7 )
@@ -54,6 +55,17 @@ pause_mode = 2
 visible = false
 position = Vector2( 325, 208 )
 z_index = 100
+
+[node name="BallProjection" type="Line2D" parent="."]
+default_color = Color( 0.658824, 1, 0.4, 1 )
+
+[node name="RubberControl" type="Line2D" parent="."]
+width = 12.0
+default_color = Color( 1, 0.854902, 0.270588, 0.482353 )
+texture = ExtResource( 8 )
+texture_mode = 1
+joint_mode = 2
+round_precision = 1
 
 [connection signal="on_btn_menu_pressed" from="HUD" to="." method="_on_HUD_on_btn_menu_pressed"]
 [connection signal="on_match_finishes" from="HUD" to="." method="_on_HUD_on_match_finishes"]
