@@ -16,6 +16,8 @@ gravity_scale = 3.0
 contacts_reported = 1
 contact_monitor = true
 sleeping = true
+linear_damp = 0.0
+angular_damp = 0.0
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_group_": true

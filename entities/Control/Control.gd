@@ -30,6 +30,7 @@ func _on_TouchScreenButton_released():
 	$Sprite.scale.y = 1
 	$Sprite.scale.x = 1
 	$Sprite.position = initial_sprite_position
+	on_drag()
 	emit_signal("control_released", Vector2(delta_drag_x, delta_drag_y))
 
 func _input(event):
@@ -38,12 +39,16 @@ func _input(event):
 			touch_pos = event.get_position()
 			delta_x = touch_pos.x - $Sprite.position.x
 			delta_y = touch_pos.y - $Sprite.position.y
-			
+	
 		if event is InputEventScreenDrag:
 			touch_pos = event.get_position()
-			delta_drag_x = touch_pos.x - delta_x
-			delta_drag_y = touch_pos.y - delta_y
-			var force = Vector2(delta_drag_x, delta_drag_y)
-			#using clamped limits a vector longitude
-			$Sprite.set_position(force.clamped(MAX_DISTANCE))
+			on_drag()
 			emit_signal("control_is_dragging", $Sprite.position)
+
+func on_drag():
+	delta_drag_x = touch_pos.x - delta_x
+	delta_drag_y = touch_pos.y - delta_y
+	var force = Vector2(delta_drag_x, delta_drag_y)
+	#using clamped limits a vector longitude
+	$Sprite.set_position(force.clamped(MAX_DISTANCE))
+	

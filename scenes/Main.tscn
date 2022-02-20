@@ -57,7 +57,9 @@ position = Vector2( 325, 208 )
 z_index = 100
 
 [node name="BallProjection" type="Line2D" parent="."]
-default_color = Color( 0.658824, 1, 0.4, 1 )
+default_color = Color( 1, 0.854902, 0.270588, 0.482353 )
+texture = ExtResource( 8 )
+texture_mode = 1
 
 [node name="RubberControl" type="Line2D" parent="."]
 width = 12.0

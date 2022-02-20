@@ -9,6 +9,9 @@ var ball_instance: RigidBody2D
 var current_score = 0
 var timer_reload_ball_and_control_instance = Timer.new()
 var is_ball_outside_the_screen = false
+var is_ball_released = false
+var is_control_dragging = false
+var projection_points = 40
 
 func _ready():
 	$Basket.setup_goal_area()
@@ -18,8 +21,6 @@ func _ready():
 	#setting rubber control
 	$RubberControl.add_point(ball_instance.position, 0.2)
 	$RubberControl.add_point(control_instance.position + Vector2(30, 30), 0.2)
-	# setting the projection
-	create_ball_projection()
 
 func _input(event):
 	if event.is_action_pressed("ui_pause"):
@@ -37,6 +38,12 @@ func _process(_delta):
 	if ball_instance.position.x > -64 && is_ball_outside_the_screen:
 		is_ball_outside_the_screen = false
 
+func _physics_process(delta):
+	for ball_node in get_tree().get_nodes_in_group("ball_player"):
+		if is_ball_released == false:
+			#create_ball_projection(ball_node, control_instance.position * -1, 0.016)
+			pass
+
 func _on_Button_pressed():
 	create_ball_and_control()
 
@@ -50,9 +57,11 @@ func connect_with_basket_node():
 func create_ball():
 	if ball_instance != null:
 		remove_child(ball_instance)
-	
+	is_ball_released = false
+		
 	ball_instance = ball.instance()
 	ball_instance.position = Globals.generate_ball_position()
+	ball_instance.add_to_group("ball_player")
 
 	var has_error = ball_instance.connect("ball_touched_ring", self, "_on_ball_touched_ring")
 	if has_error != 0:
@@ -64,7 +73,7 @@ func create_control():
 	control_instance = control.instance()
 	# initial position in the 2d preview: 768, 310
 	control_instance.position = Globals.generate_control_position(ball_instance.position)
-	
+	control_instance.add_to_group("control_player")
 	if control_instance.connect("control_is_dragging", self, "_on_control_is_dragging") != 0:
 		print("ERROR connecting with the control_is_dragging event")
 	
@@ -92,16 +101,28 @@ func create_reload_timer(value):
 	print("START TIMER", value)
 
 func _on_control_is_dragging(position):
+	print("_on_control_is_dragging:position", position)
+	is_control_dragging = true
 	#updating rubber control
 	$RubberControl.points[0] = control_instance.position + position
 
+	#updating projection
+	$BallProjection.clear_points()
+	create_ball_projection(ball_instance, position, 0.016)
+
+
 func _on_control_released(direction):
-	ball_instance.apply_torque_impulse(10000)
-	ball_instance.apply_impulse(Vector2.ZERO, direction * -50)
+	# ball_instance.apply_torque_impulse(1000)
+	is_ball_released = true
+	is_control_dragging = false
+	print("_on_control_released:direction", direction)
+	ball_instance.apply_central_impulse(direction * -50)
 	remove_child(control_instance)
 	create_reload_timer(time_to_reload_when_it_fails)
 	# rubber clean
 	$RubberControl.clear_points()
+	# Projection clean
+	$BallProjection.clear_points()
 
 func _on_ball_touched_ring():
 	print("more time please!")
@@ -130,20 +151,26 @@ func create_ball_and_control():
 	$RubberControl.clear_points()
 	$RubberControl.add_point(ball_instance.position, 0.2)
 	$RubberControl.add_point(control_instance.position + Vector2(30, 30), 0.2)
-	create_ball_projection()
+	$BallProjection.clear_points()
+	
 	
 #Refs
 # https://github.com/kerodekroma/pickaball/blob/ba90ca2a53f69ea25c215cb0d91fb6e519b8b976/src/objects/arrow.object.ts#L150
 # https://github.com/MrEliptik/godot_experiments/blob/master/2D/destructible_terrain/scenes/game.gd
-func create_ball_projection():
-	var delta = Engine.get_frames_per_second()
+func create_ball_projection(ball_instance, impulse, delta):
+	if projection_points == $BallProjection.points.size():
+		return
+
 	$BallProjection.clear_points()
 	var ball_pos = ball_instance.position
-	var vel = Vector2(-20, -20)
-	for i in 10:
+	var gravity = Vector2(0, 3)
+	var _force = gravity + impulse
+	var vel = _force * delta
+
+	for i in projection_points:
 		$BallProjection.add_point(ball_pos)
-		vel.y += 3 * delta
-		ball_pos += vel * delta
+		vel += gravity * (0.01 + delta)
+		ball_pos += vel
 
 func _on_HUD_on_btn_menu_pressed():
 	# useful info: https://docs.godotengine.org/en/3.4/tutorials/scripting/pausing_games.html#pause
